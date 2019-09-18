@@ -59,6 +59,13 @@ function start() {
                 .then(function (answer) {
                     var inputId = parseInt(answer.input_id);
                     var inputQuan = parseInt(answer.input_quantity);
+
+                    connection.query(
+                        "select * from products where item_id =(?)",[inputId], function (err, result) {
+                          console.log(" Total Price is " + inputQuan * result[0].price )
+                        })
+                    //var total = parseInt(res.price * answer.input_quantity)
+                    //console.log(res.price)
                     // get the information of the chosen item
                     var chosenItem;
                     for (var i = 0; i < res.length; i++) {
@@ -67,6 +74,7 @@ function start() {
                             console.log("This is chosen Item", chosenItem)
                         }
                     }
+                     
                         // chosenitem.stockquantity if >= inputquantity then we can proceed
                         // chosenitem.stockquantity - inputquantity = newstockquantity
                         // updata databse 
